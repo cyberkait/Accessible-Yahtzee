@@ -46,7 +46,10 @@ def parseKeyDown(e):
     roll.play()
     o.speak(diceBox.getAllDiceText())
     return 
-    
+  elif e.key == pygame.K_v:
+    diceBox.viewScorecard()
+    return
+
     
     
   else:

@@ -45,19 +45,58 @@ class DiceBox:
             
         self.score = 0
         self.scoreboard = {
-            "ones": 0,
-            "twos": 0,
-            "threes": 0,
-            "fours": 0,
-            "fives": 0,
-            "sixes": 0,
-            "three of a kind": 0,
-            "four of a kind": 0,
-            "full house": 0,
-            "small straight": 0,
-            "large straight": 0,
-            "yahtzee": 0,
-            "chance": 0,
+            "ones": {
+                "value": 0,
+                "state": "locked",
+            },
+            "twos": {
+                "value": 0,
+                "state": "locked",
+            },
+            "threes": {
+                "value": 0,
+                "state": "locked",
+            },
+            "fours": {
+                "value": 0,
+                "state": "locked",
+            },
+            "fives": {
+                "value": 0,
+                "state": "locked",
+            },
+            "sixes": {
+                "value": 0,
+                "state": "locked",
+            },
+            "three of a kind": {
+                "value": 0,
+                "state": "locked",
+            },
+            "four of a kind": {
+                "value": 0,
+                "state": "locked",
+            },
+            "full house": {
+                "value": 0,
+                "state": "locked",
+            },
+            "small straight": {
+                "value": 0,
+                "state": "locked",
+            },
+            "large straight": {
+                "value": 0,
+                "state": "locked",
+            },
+            "yahtzee": {
+                "value": 0,
+                "state": "locked",
+            },
+            "chance": {
+                "value": 0,
+                "state": "locked",
+            },
         }
 
     def getAllDiceText(self):
@@ -211,10 +250,12 @@ class DiceBox:
             elif value == "chance":
                 self.scoreDiceOf(0)
         else:
-            print("Sorry, an error has occured.")
+            print("Sorry, an error has occured while scoring dice.")
 
-    
-    
+    def viewScorecard(self):
+        for k, v in self.scoreboard.items():
+            o.speak(f"{k}, {v['value']}.", interrupt=False)
+            
         
             
 if __name__ == "__main__":
