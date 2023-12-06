@@ -180,7 +180,7 @@ class DiceBox:
         score = 0
         for die in self.dice:
             if side == 0 or die.value == side:
-                score += die.value
+                sgcore += die.value
         return score
 
     def scoreNumberOf(self, numberOf=3):
