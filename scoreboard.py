@@ -54,7 +54,7 @@ class Scoreboard:
         """
         s = self.get_score(self.contents[num], lst)
         self.contents[num].score = s
-        self.contents[num].hasScore = True
+        self.contents[num].has_score = True
         self.total_score += s
 
 

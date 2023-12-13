@@ -2,9 +2,10 @@
 Module which contains all of the tiles used for Yahtzee.
 """
 
+
 class Tile:
     """
-    Base class for Yahtzee tiles.
+    Base class for   Yahtzee tiles.
     """
 
     def __init__(self, name):
@@ -13,7 +14,7 @@ class Tile:
         """
         self.name = name
         self.score = 0
-        self.hasScore = False
+        self.has_score = False
 
     def __str__(self):
         return self.name
@@ -23,7 +24,7 @@ class Tile:
         Scores tile and then locks it.
         """
         self.score = value
-        self.hasScore = True
+        self.has_score = True
 
 
 class SumTile(Tile):
@@ -42,7 +43,7 @@ class SumTile(Tile):
         """
         Scores the tile.
         """
-        if self.hasScore == False:
+        if not self.has_score:
             new_score = self.score
             if self.number == 0:
                 new_score = sum(dice)
@@ -51,6 +52,7 @@ class SumTile(Tile):
                     if die == self.number:
                         new_score += die
             return new_score
+        return self.score
 
 
 class NumberTile(Tile):
@@ -58,23 +60,23 @@ class NumberTile(Tile):
     Tiles which check for more than 3 of a number.
     """
 
-    def __init__(self, name, numberOf):
+    def __init__(self, name, number_of):
         super().__init__(name)
-        self.numberOf = numberOf
+        self.number_of = number_of
 
     def score_tile(self, dice):
         """
         Scores tile.
         """
-        if self.hasScore == False:
+        if not self.has_score:
             dice.sort()
-            for index in range(len(dice) - self.numberOf + 1):
-                if len(set(dice[index : index + self.numberOf])) == 1:
-                    if len(set(dice)) == 1:
+            for index in range(len(dice) - self.number_of + 1):
+                if len(set(dice[index : index + self.number_of])) == 1:
+                    if len(set(dice)) == 1 and self.number_of == 5:
                         return 50
-                    else:
-                        return sum(dice)
+                    return sum(dice)
             return 0
+        return self.score
 
 
 class FullHouse(Tile):
@@ -92,19 +94,14 @@ class FullHouse(Tile):
         """
         Scores the tile.
         """
-        if self.hasScore == False:
+        if not self.has_score:
             dice.sort()
-            if (
-                dice[0] == dice[1]
-                and dice[1] != dice[2]
-                and dice[2] == dice[3] == dice[4]
-            ) or (
-                dice[0] == dice[1] == dice[2]
-                and dice[2] != dice[3]
-                and dice[3] == dice[4]
+            if (len(set(dice)) == 2) and (
+                dice.count(dice[0]) == 3 or dice.count(dice[0]) == 2
             ):
                 return 25
             return 0
+        return self.score
 
 
 class SmallStraight(Tile):
@@ -122,7 +119,7 @@ class SmallStraight(Tile):
         """
         Scores the tile.
         """
-        if self.hasScore == False:
+        if not self.has_score:
             dice = list(set(dice))
             dice.sort()
             if len(dice) >= 4 and (
@@ -133,6 +130,7 @@ class SmallStraight(Tile):
             ):
                 return 30
             return 0
+        return self.score
 
 
 class LargeStraight(Tile):
@@ -150,8 +148,9 @@ class LargeStraight(Tile):
         """
         Scores the tile.
         """
-        if self.hasScore == False:
+        if not self.has_score:
             dice.sort()
-            if dice == [1, 2, 3, 4, 5] or dice == [2, 3, 4, 5, 6]:
+            if dice in ([1, 2, 3, 4, 5], [2, 3, 4, 5, 6]):
                 return 40
             return 0
+        return self.score
